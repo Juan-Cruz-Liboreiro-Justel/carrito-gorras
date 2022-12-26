@@ -1,110 +1,118 @@
-let nombreUsuario = prompt("Hola! ingresa tu nombre para comenzar a comprar");
+const addToShoppingCartButtons = document.querySelectorAll('.addToCart');
+addToShoppingCartButtons.forEach((addToCartButton) => {
+  addToCartButton.addEventListener('click', addToCartClicked);
+});
 
-let detroit = 19499;
-let losAngeles = 17999;
-let newYork = 15499;
-let boston = 21999;
-let sanFrancisco = 22499;
-let precioFinal = 0;
+const comprarButton = document.querySelector('.comprarButton');
+comprarButton.addEventListener('click', comprarButtonClicked);
 
+const shoppingCartItemsContainer = document.querySelector(
+  '.shoppingCartItemsContainer'
+);
 
+function addToCartClicked(event) {
+  const button = event.target;
+  const item = button.closest('.item');
 
-let productos = prompt("Hola " + nombreUsuario + ", que gorra vas a querer comprar? \nDetroit \nLos Angeles \nNew York \nBoston \nSan Francisco \nPresiona x para finalizar.");
-while (productos != "x") {
+  const itemTitle = item.querySelector('.item-title').textContent;
+  const itemPrice = item.querySelector('.item-price').textContent;
+  const itemImage = item.querySelector('.item-image').src;
 
-  switch (productos) {
-    case "detroit":
-      let color = prompt("Elegi el color: \nNegro \nAzul \nNaranja \nBlanco");
-      if (color === "negro") {
-        precioFinal = parseInt(precioFinal + detroit)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color === "azul") {
-        precioFinal = parseInt(precioFinal + detroit)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color === "naranja") {
-        precioFinal = parseInt(precioFinal + detroit)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color === "blanco") {
-        precioFinal = parseInt(precioFinal + detroit)
-        alert("El total de tu compra es de $ " + precioFinal);
-      }
-      else {
-        alert("Opcion incorrecta, seleccione uno de nuestros productos o presiona x para finalizar.");
-      }
-      break;
-    case "los angeles":
-      let color2 = prompt("Elegi el color: \nNegro \nAzul \nBlanco");
-      if (color2 === "negro") {
-        precioFinal = parseInt(precioFinal + losAngeles)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color2 === "azul") {
-        precioFinal = parseInt(precioFinal + losAngeles)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color2 === "blanco") {
-        precioFinal = parseInt(precioFinal + losAngeles)
-        alert("El total de tu compra es de $ " + precioFinal);
-      }
-      else {
-        alert("Opcion incorrecta, seleccione uno de nuestros productos o presiona x para finalizar.");
-      }
-      break;
-    case "new york":
-      let color3 = prompt("Elegi el color: \nNegro \nAzul \nBlanco");
-      if (color3 === "negro") {
-        precioFinal = parseInt(precioFinal + newYork)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color3 === "azul") {
-        precioFinal = parseInt(precioFinal + newYork)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color3 === "blanco") {
-        precioFinal = parseInt(precioFinal + newYork)
-        alert("El total de tu compra es de $ " + precioFinal);
-      }
-      else {
-        alert("Opcion incorrecta, seleccione uno de nuestros productos o presiona x para finalizar.");
-      }
-      break;
-    case "boston":
-      let color4 = prompt("Elegi el color: \nNegro \nAzul \nRojo \nBlanco");
-      if (color4 === "negro") {
-        precioFinal = parseInt(precioFinal + boston)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color4 === "azul") {
-        precioFinal = parseInt(precioFinal + boston)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color4 === "rojo") {
-        precioFinal = parseInt(precioFinal + boston)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color4 === "blanco") {
-        precioFinal = parseInt(precioFinal + boston)
-        alert("El total de tu compra es de $ " + precioFinal);
-      }
-      else {
-        alert("Opcion incorrecta, seleccione uno de nuestros productos o presiona x para finalizar.");
-      }
-      break;
-    case "san francisco":
-      let color5 = prompt("Elegi el color: \nNegro \nNaranja \nBlanco");
-      if (color5 === "negro") {
-        precioFinal = parseInt(precioFinal + sanFrancisco)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color5 === "naranja") {
-        precioFinal = parseInt(precioFinal + sanFrancisco)
-        alert("El total de tu compra es de $ " + precioFinal);
-      } else if (color5 === "blanco") {
-        precioFinal = parseInt(precioFinal + sanFrancisco)
-        alert("El total de tu compra es de $ " + precioFinal);
-      }
-      else {
-        alert("Opcion incorrecta, seleccione uno de nuestros productos o presiona x para finalizar.");
-      }
-      break;
+  addItemToShoppingCart(itemTitle, itemPrice, itemImage);
+}
 
-    default:
-      alert("Opción no valida");
-      break;
+function addItemToShoppingCart(itemTitle, itemPrice, itemImage) {
+  const elementsTitle = shoppingCartItemsContainer.getElementsByClassName(
+    'shoppingCartItemTitle'
+  );
+  for (let i = 0; i < elementsTitle.length; i++) {
+    if (elementsTitle[i].innerText === itemTitle) {
+      let elementQuantity = elementsTitle[
+        i
+      ].parentElement.parentElement.parentElement.querySelector(
+        '.shoppingCartItemQuantity'
+      );
+      elementQuantity.value++;
+      $('.toast').toast('show');
+      updateShoppingCartTotal();
+      return;
+    }
   }
-  productos = prompt("Que gorra vas a querer comprar?: \nDetroit \nLos Angeles \nNew York \nBoston \nSan Francisco \nPresiona x para finalizar.");
 
+  const shoppingCartRow = document.createElement('div');
+  const shoppingCartContent = `
+  <div class="row shoppingCartItem">
+        <div class="col-6">
+            <div class="shopping-cart-item d-flex align-items-center h-100 border-bottom pb-2 pt-3">
+                <img src=${itemImage} class="shopping-cart-image">
+                <h6 class="shopping-cart-item-title shoppingCartItemTitle text-truncate ml-3 mb-0">${itemTitle}</h6>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="shopping-cart-price d-flex align-items-center h-100 border-bottom pb-2 pt-3">
+                <p class="item-price mb-0 shoppingCartItemPrice">${itemPrice}</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <div
+                class="shopping-cart-quantity d-flex justify-content-between align-items-center h-100 border-bottom pb-2 pt-3">
+                <input class="shopping-cart-quantity-input shoppingCartItemQuantity" type="number"
+                    value="1">
+                <button class="btn btn-danger buttonDelete" type="button">X</button>
+            </div>
+        </div>
+    </div>`;
+  shoppingCartRow.innerHTML = shoppingCartContent;
+  shoppingCartItemsContainer.append(shoppingCartRow);
 
-};
+  shoppingCartRow
+    .querySelector('.buttonDelete')
+    .addEventListener('click', removeShoppingCartItem);
+
+  shoppingCartRow
+    .querySelector('.shoppingCartItemQuantity')
+    .addEventListener('change', quantityChanged);
+
+  updateShoppingCartTotal();
+}
+
+function updateShoppingCartTotal() {
+  let total = 0;
+  const shoppingCartTotal = document.querySelector('.shoppingCartTotal');
+
+  const shoppingCartItems = document.querySelectorAll('.shoppingCartItem');
+
+  shoppingCartItems.forEach((shoppingCartItem) => {
+    const shoppingCartItemPriceElement = shoppingCartItem.querySelector(
+      '.shoppingCartItemPrice'
+    );
+    const shoppingCartItemPrice = Number(
+      shoppingCartItemPriceElement.textContent.replace('$', '')
+    );
+    const shoppingCartItemQuantityElement = shoppingCartItem.querySelector(
+      '.shoppingCartItemQuantity'
+    );
+    const shoppingCartItemQuantity = Number(
+      shoppingCartItemQuantityElement.value
+    );
+    total = total + shoppingCartItemPrice * shoppingCartItemQuantity;
+  });
+  shoppingCartTotal.innerHTML = `$${total.toFixed(2)}`;
+}
+
+function removeShoppingCartItem(event) {
+  const buttonClicked = event.target;
+  buttonClicked.closest('.shoppingCartItem').remove();
+  updateShoppingCartTotal();
+}
+
+function quantityChanged(event) {
+  const input = event.target;
+  input.value <= 0 ? (input.value = 1) : null;
+  updateShoppingCartTotal();
+}
+
+function comprarButtonClicked() {
+  shoppingCartItemsContainer.innerHTML = '';
+  updateShoppingCartTotal();
+}

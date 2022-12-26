@@ -1,0 +1,139 @@
+/* ESTILOS GENERALES*/
+
+body {
+  background-image: linear-gradient(rgba(5, 10, 5, 0.80), rgba(50, 53, 9, 0.8)), url(../img/fondo.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: rgb(255, 255, 0);
+}
+
+/* ESTILOS GENERALES*/
+
+/* NAVBAR */
+
+.nav-menu {
+  margin: 30px auto;
+}
+
+.nav-menu div .logo {
+  width: 130px;
+  cursor: pointer;
+}
+
+.nav-menu div .menu {
+  justify-content: end;
+}
+
+.nav-menu div .menu ul li a {
+  color: rgb(255, 255, 0);
+  text-decoration: none;
+  font-size: 1.3rem;
+  transition: 0.4s;
+}
+
+.nav-menu div .menu ul li a:hover {
+  color:  rgb(1, 1, 1);
+  background-color: rgb(255, 255, 0);
+  border-radius: 15px 5px;
+}
+
+/* NAVBAR */
+
+/* CARRITO */
+.item {
+  border: 2px solid rgb(255, 255, 0);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.item-title {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+}
+
+.item-image {
+  height: 500px;
+  width: 100%;
+}
+
+.item-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0px 15px;
+}
+
+.item-details>.item-price {
+  margin: 0;
+}
+
+.item-button {
+  background-color: transparent;
+  border-color: rgb(255, 255, 0);
+  color: rgb(255, 255, 0);
+}
+
+.item-button:hover{
+  background-color: rgb(255, 255, 0);
+  color: rgb(1, 1, 1);
+}
+
+/* SHOPPING CART */
+
+.shopping-cart{
+  background-color: rgba(1, 1, 1, 0.80);
+  border-radius: 15px;
+}
+
+.shopping-cart-items {
+  padding: 20px 0px;
+}
+
+.shopping-cart-header {
+  border-bottom: 1px solid rgb(255, 255, 0);
+}
+
+.shopping-cart-image {
+  max-width: 80px;
+  border-radius: 20px;
+}
+
+.shopping-cart-quantity-input {
+  max-width: 45px;
+  border: 1px solid rgb(255, 255, 0);
+  border-radius: 5px;
+  background: rgb(255, 255, 0);
+  padding: 5px;
+}
+
+.shopping-cart-total {
+  min-height: 96px;
+}
+
+/* CARRITO */
+
+/* GO UP */
+
+.btn_arriba a img {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  bottom: 50px;
+  right: 15px;
+  background-color: rgba(1, 1, 1, 0.80);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+/* GO UP */
+
+/* FOOTER */
+
+.footer{
+  background-color: rgba(1, 1, 1, 0.80);
+}
+
+/* FOOTER */
